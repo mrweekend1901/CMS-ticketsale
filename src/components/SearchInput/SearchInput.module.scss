@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 17px 0;
+
+  .input {
+    width: 100%;
+    padding: 6px 0;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #1e0d03;
+    background-color: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .btn-search {
+    padding: 5px;
+    font-size: 2.2rem;
+    margin-left: 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}

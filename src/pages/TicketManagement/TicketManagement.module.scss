@@ -1,0 +1,42 @@
+.wraper {
+  padding: 24px;
+  margin-right: 32px;
+  background: #ffffff;
+  border-radius: 24px;
+
+  .header {
+    font-weight: 700;
+    font-size: 3.6rem;
+    color: #1e0d03;
+    margin-bottom: 30px;
+  }
+
+  .body {
+    .feature-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .btn-group {
+        display: flex;
+
+        .btn-feature {
+          height: 48px;
+          font-weight: 700;
+          font-size: 1.8rem;
+          border: 1.5px solid #ff993c;
+          color: #ff993c;
+          background-color: #fff;
+
+          &:not(:last-child) {
+            margin-right: 12px;
+          }
+
+          .btn-icon {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+// Sidebar css
+.sidebar {
+  padding: 17px 33px;
+  background-color: #e5e5e5;
+
+  .logo {
+    width: 133px;
+    margin-bottom: 59px;
+  }
+
+  // Sidebar list css
+  .sidebar-list {
+    list-style: none;
+
+    // Sidebar item css
+    .sidebar-item {
+      width: 252px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .link {
+        height: 100%;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #1e0d03;
+        opacity: 0.6;
+        border-radius: 8px;
+
+        .icon {
+          display: flex;
+          align-items: center;
+          font-size: 1.6rem;
+          margin-left: 26px;
+          margin-right: 14px;
+        }
+
+        .link-text {
+          font-weight: 500;
+          font-size: 1.8rem;
+        }
+
+        &:global(.active) {
+          font-weight: 700;
+          background-color: #ffb800;
+          color: #fff;
+        }
+      }
+
+      .no-pointer {
+        cursor: default;
+      }
+
+      // Sidebar child list
+      .sidebar-child-list {
+        list-style: none;
+
+        .child-link {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: #1e0d03;
+          opacity: 0.6;
+          margin-top: 8px;
+          margin-left: 80px;
+
+          &:global(.active) {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
