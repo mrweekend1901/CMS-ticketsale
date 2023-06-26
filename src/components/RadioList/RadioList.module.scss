@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    .radio-btn {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .radio-name {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #1e0d03;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+}

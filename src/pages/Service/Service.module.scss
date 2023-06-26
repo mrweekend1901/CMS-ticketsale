@@ -33,8 +33,21 @@
             margin-right: 12px;
           }
 
-          .btn-icon {
-            margin-right: 10px;
+          .btn-text {
+            padding: 0 12px;
+          }
+        }
+
+        .btn-background {
+          height: 48px;
+          font-weight: 700;
+          font-size: 1.8rem;
+          border: none;
+          color: #fff;
+          background-color: #ff993c;
+
+          .btn-text {
+            padding: 0 12px;
           }
         }
       }
