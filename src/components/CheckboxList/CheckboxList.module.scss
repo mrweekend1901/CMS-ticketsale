@@ -1,20 +1,20 @@
 .container {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
-  .radio-group {
+  .checkbox-group {
     display: flex;
     align-items: center;
-    height: 36px;
-    margin-right: 40px;
+    margin-right: 120px;
+    margin-bottom: 12px;
 
-    .radio-btn {
+    .checkbox {
       width: 18px;
       height: 18px;
       cursor: pointer;
     }
 
-    .radio-name {
+    .checkbox-name {
       font-size: 1.6rem;
       font-weight: 500;
       color: #1e0d03;

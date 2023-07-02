@@ -1,5 +1,4 @@
 export interface TicketManagementType {
-  numerical: number;
   bookingCode: string;
   ticketID: string;
   eventName: string;
@@ -7,5 +6,6 @@ export interface TicketManagementType {
   dayUse: string;
   dayMFG: string;
   address: string;
-  userName: string;
+  ticketType: string;
+  controlStatus: string;
 }

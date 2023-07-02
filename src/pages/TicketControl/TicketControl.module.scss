@@ -39,6 +39,65 @@
           }
         }
       }
+
+      .table {
+        height: 680px;
+
+        //CSS for row thead
+        th {
+          padding: 0 10px;
+          margin-left: 10px;
+          min-width: 60px;
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: #1e0d03;
+
+          &:first-child {
+            border-top-left-radius: 8px;
+          }
+
+          &:last-child {
+            border-top-right-radius: 8px;
+          }
+        }
+
+        .left {
+          text-align: left;
+        }
+
+        .right {
+          text-align: right;
+        }
+
+        //CSS for row tbody
+        td {
+          padding: 0 10px;
+        }
+
+        .stt,
+        .address {
+          text-align: center;
+        }
+
+        .day-use,
+        .day-mfg {
+          text-align: right;
+        }
+
+        .is-control {
+          font-size: 14px;
+          font-style: italic;
+          font-weight: 500;
+          color: #fd5959;
+        }
+
+        .is-not-control {
+          font-size: 14px;
+          font-style: italic;
+          font-weight: 500;
+          color: #a5a8b1;
+        }
+      }
     }
   }
 

@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
 import SearchInput from '../../components/SearchInput';
 import RadioList from '../../components/RadioList';
 import Dropdown from '../../components/Dropdown';
+import { ThunkDispatch } from 'redux-thunk';
+import Table from '../../components/Table';
+import { RootState } from '../../redux/reducers/rootReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { TicketControlType } from '../../redux/types/ticketControlType';
+import { fetchTicketControl } from '../../redux/actions/ticketControlAction';
 
 import classNames from 'classnames/bind';
 import styles from './TicketControl.module.scss';
@@ -21,6 +27,20 @@ const optionsDropdown = [
 ];
 
 const TicketControl: React.FC = () => {
+  // Lấy dữ liệu User từ Redux
+  const dispatch: ThunkDispatch<RootState, null, any> = useDispatch();
+  const ticketsControl = useSelector((state: RootState) => state.ticketControl.ticketsControl);
+  const loading = useSelector((state: RootState) => state.ticketControl.loading);
+  const error = useSelector((state: RootState) => state.ticketControl.error);
+
+  useEffect(() => {
+    // Gọi hàm fetchUsers khi component được mount
+    dispatch(fetchTicketControl());
+  }, [dispatch]);
+
+  // Số lượng trang của Table
+  const itemsPerPage = 12;
+
   const handleSearch = (searchTerm: string) => {
     // Xử lý tìm kiếm với giá trị searchTerm
     console.log('Searching for:', searchTerm);
@@ -34,6 +54,43 @@ const TicketControl: React.FC = () => {
   // Xử lý chọn radio
   const handleRadioChange = (selectedValues: string[]) => {
     console.log('Selected options:', selectedValues);
+  };
+
+  // Render RowHead
+  const renderHeadRow = () => {
+    return (
+      <Fragment>
+        <th>STT</th>
+        <th className={cx('left')}>Số vé</th>
+        <th className={cx('left')}>Tên sự kiện</th>
+        <th className={cx('left')}>Loại vé</th>
+        <th className={cx('right')}>Ngày sử dụng</th>
+        <th>Cổng check - in</th>
+        <th></th>
+      </Fragment>
+    );
+  };
+
+  // Render RowBody
+  const renderBodyRow = (ticketControl: TicketControlType, index: number) => {
+    const renderControlStatus = () => {
+      if (ticketControl.controlStatus) {
+        return <span className={cx('is-control')}>Đã đối soát</span>;
+      } else {
+        return <span className={cx('is-not-control')}>Chưa đối soát</span>;
+      }
+    };
+    return (
+      <Fragment>
+        <td className={cx('stt')}>{index + 1}</td>
+        <td>{ticketControl.ticketID}</td>
+        <td>{ticketControl.eventName}</td>
+        <td>{ticketControl.ticketType}</td>
+        <td className={cx('day-use')}>{ticketControl.dayUse}</td>
+        <td className={cx('address')}>{ticketControl.address}</td>
+        <td>{renderControlStatus()}</td>
+      </Fragment>
+    );
   };
 
   return (
@@ -56,7 +113,16 @@ const TicketControl: React.FC = () => {
               </button>
             </span>
           </div>
-          <div className={cx('table')}></div>
+          <div className={cx('table')}>
+            <Table<TicketControlType>
+              data={ticketsControl}
+              loading={loading}
+              error={error}
+              itemsPerPage={itemsPerPage}
+              renderHeadRow={renderHeadRow}
+              renderBodyRow={renderBodyRow}
+            />
+          </div>
         </div>
       </span>
 
@@ -78,7 +144,7 @@ const TicketControl: React.FC = () => {
               <RadioList
                 options={optionsRadio}
                 onChange={handleRadioChange}
-                defaultValue="option1"
+                style={{ flexDirection: 'column' }}
               />
             </div>
           </div>

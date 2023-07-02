@@ -1,0 +1,17 @@
+.status {
+  display: flex;
+  align-items: center;
+  width: 140px;
+  height: 30px;
+  padding: 8px;
+  border: 1.5px solid;
+  border-radius: 4px;
+  cursor: default;
+
+  .status-icon {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-right: 6px;
+  }
+}
