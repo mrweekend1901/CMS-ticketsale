@@ -49,6 +49,30 @@ const TicketStatus: React.FC<StatusProp> = ({ ticketStatus }) => {
           <span className={cx('status-name')}>{status}</span>
         </div>
       );
+    } else if (status === 'Đang áp dụng') {
+      return (
+        <div
+          className={cx('status')}
+          style={{ borderColor: '#03AC00', color: '#03AC00', background: '#DEF7E0' }}
+        >
+          <span className={cx('status-icon')}>
+            <FontAwesomeIcon icon={faCircle} />
+          </span>
+          <span className={cx('status-name')}>{status}</span>
+        </div>
+      );
+    } else if (status === 'Tắt') {
+      return (
+        <div
+          className={cx('status')}
+          style={{ borderColor: '#FD5959', color: '#FD5959', background: '#F8EBE8' }}
+        >
+          <span className={cx('status-icon')}>
+            <FontAwesomeIcon icon={faCircle} />
+          </span>
+          <span className={cx('status-name')}>{status}</span>
+        </div>
+      );
     } else {
       return <div className={cx('status')}>Lỗi</div>;
     }

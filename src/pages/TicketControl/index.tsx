@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import SearchInput from '../../components/SearchInput';
 import RadioList from '../../components/RadioList';
 import Dropdown from '../../components/Dropdown';
@@ -8,6 +8,9 @@ import { RootState } from '../../redux/reducers/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TicketControlType } from '../../redux/types/ticketControlType';
 import { fetchTicketControl } from '../../redux/actions/ticketControlAction';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import Calendar from '../../components/Calendar';
 
 import classNames from 'classnames/bind';
 import styles from './TicketControl.module.scss';
@@ -15,15 +18,15 @@ import styles from './TicketControl.module.scss';
 const cx = classNames.bind(styles);
 
 const optionsRadio = [
-  { id: '1', label: 'Tất cả', value: 'option1' },
-  { id: '2', label: 'Đã đối soát', value: 'option2' },
-  { id: '3', label: 'Chưa đối soát', value: 'option3' },
+  { id: '1', label: 'Tất cả', value: 'Tất cả' },
+  { id: '2', label: 'Đã đối soát', value: 'Đã đối soát' },
+  { id: '3', label: 'Chưa đối soát', value: 'Chưa đối soát' },
 ];
 
 const optionsDropdown = [
-  { id: '1', label: 'Option 1', value: 'option1' },
-  { id: '2', label: 'Option 2', value: 'option2' },
-  { id: '3', label: 'Option 3', value: 'option3' },
+  { id: '1', label: 'Tất cả', value: 'Tất cả' },
+  { id: '2', label: 'Hội chợ công nghệ 2022', value: 'Hội chợ công nghệ 2022' },
+  { id: '3', label: 'Hội chợ triễn lãm tiêu dùng 2023', value: 'Hội chợ triễn lãm tiêu dùng 2023' },
 ];
 
 const TicketControl: React.FC = () => {
@@ -40,20 +43,122 @@ const TicketControl: React.FC = () => {
 
   // Số lượng trang của Table
   const itemsPerPage = 12;
+  const [filteredData, setFilteredData] = useState<TicketControlType[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [radioValue, setRadioValue] = useState<string[]>([]);
+  const [dropDownValue, setdropDownValue] = useState<string>('');
 
   const handleSearch = (searchTerm: string) => {
     // Xử lý tìm kiếm với giá trị searchTerm
-    console.log('Searching for:', searchTerm);
+    console.log('Đang tìm kiếm:', searchTerm);
+    // Áp dụng logic lọc vào ticketsManagement dựa trên searchTerm
+    const filteredTickets = ticketsControl.filter((ticket: TicketControlType) => {
+      return ticket.ticketID.includes(searchTerm);
+    });
+
+    // Lưu trữ dữ liệu đã lọc vào state filteredData
+    setFilteredData(filteredTickets);
+  };
+
+  // Show calendar
+  const [isShowCalendarTo, setIsShowCalendarTo] = useState(false);
+
+  const handleShowCalendarTo = () => {
+    setIsShowCalendarTo(!isShowCalendarTo);
+  };
+
+  const handleDateSelect = (date: Date | null) => {
+    setSelectedDate(date);
+    // console.log('Selected Date:', date);
+  };
+
+  const handleRangeSelect = (start: Date | null, end: Date | null) => {
+    // console.log('Start Date:', start);
+    // console.log('End Date:', end);
+  };
+
+  // Định dạng format ngày
+  const formatDate = (date: Date | null): string => {
+    if (!date) return '';
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
   };
 
   // Xử lý chọn dropdown
   const handleDropdownSelect = (selectedValue: string) => {
-    console.log(selectedValue);
+    setdropDownValue(selectedValue);
   };
 
   // Xử lý chọn radio
   const handleRadioChange = (selectedValues: string[]) => {
-    console.log('Selected options:', selectedValues);
+    setRadioValue(selectedValues);
+  };
+
+  // Ơ lần đầu component mouted selecteday sẽ null
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      setSelectedDate(null);
+      isInitialMount.current = false;
+    }
+  }, []);
+
+  function convertStringToDate(dateString: any) {
+    const dateParts = dateString.split('/');
+    const day = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1;
+    const year = parseInt(dateParts[2], 10);
+
+    if (isNaN(day) || isNaN(month) || isNaN(year)) {
+      return null;
+    }
+
+    const dateObject = new Date(year, month, day);
+    return dateObject;
+  }
+
+  // Xử lý lọc Table
+  const handleFilterClick = () => {
+    console.log(dropDownValue);
+    // Lọc dữ liệu theo các điều kiện
+    const filteredTickets = ticketsControl.filter((ticket: TicketControlType) => {
+      // Lọc theo trạng thái vé
+      if (
+        radioValue.length > 0 &&
+        !radioValue.includes('Tất cả') &&
+        !radioValue.includes(ticket.controlStatus)
+      ) {
+        return false;
+      }
+
+      // Lọc theo tên sự kiện
+      if (dropDownValue) {
+        if (dropDownValue !== 'Tất cả' && !dropDownValue.includes(ticket.eventName)) {
+          return false;
+        }
+      }
+
+      //Lọc theo ngày
+      if (selectedDate !== null) {
+        const ticketDateUse = convertStringToDate(ticket.dayUse);
+
+        // Trường hợp không có ngày sử dụng
+        if (ticketDateUse && ticketDateUse <= selectedDate) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      return true; // Mặc định trả về true nếu không có điều kiện lọc nào áp dụng
+    });
+
+    setFilteredData(filteredTickets);
   };
 
   // Render RowHead
@@ -74,7 +179,7 @@ const TicketControl: React.FC = () => {
   // Render RowBody
   const renderBodyRow = (ticketControl: TicketControlType, index: number) => {
     const renderControlStatus = () => {
-      if (ticketControl.controlStatus) {
+      if (ticketControl.controlStatus === 'Đã đối soát') {
         return <span className={cx('is-control')}>Đã đối soát</span>;
       } else {
         return <span className={cx('is-not-control')}>Chưa đối soát</span>;
@@ -115,7 +220,7 @@ const TicketControl: React.FC = () => {
           </div>
           <div className={cx('table')}>
             <Table<TicketControlType>
-              data={ticketsControl}
+              data={filteredData.length > 0 ? filteredData : ticketsControl}
               loading={loading}
               error={error}
               itemsPerPage={itemsPerPage}
@@ -149,24 +254,50 @@ const TicketControl: React.FC = () => {
             </div>
           </div>
 
-          <div className={cx('filter-group')}>
+          <div className={cx('filter-group', 'filter-group-center')}>
             <p className={cx('name')}>Loại vé</p>
             <div className={cx('filter')}>
               <p className={cx('text')}>Vé cổng</p>
             </div>
           </div>
 
-          <div className={cx('filter-group')}>
+          <div className={cx('filter-group', 'filter-group-center')}>
             <p className={cx('name')}>Từ ngày</p>
-            <div className={cx('filter')}></div>
+            <div className={cx('filter')}>
+              <div className={cx('input-day', 'disable')}>
+                <input className={cx('input')} type="text" disabled value={''} />
+                <button className={cx('calendar-icon')}>
+                  <FontAwesomeIcon icon={faCalendarDays} />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className={cx('filter-group')}>
+          <div className={cx('filter-group', 'filter-group-center')}>
             <p className={cx('name')}>Đến ngày</p>
-            <div className={cx('filter')}></div>
+            <div className={cx('filter')}>
+              <div className={isShowCalendarTo ? cx('input-day', 'active') : cx('input-day')}>
+                <input
+                  className={cx('input')}
+                  type="text"
+                  readOnly
+                  value={formatDate(selectedDate)}
+                />
+                <button className={cx('calendar-icon')} onClick={handleShowCalendarTo}>
+                  <FontAwesomeIcon icon={faCalendarDays} />
+                </button>
+                {isShowCalendarTo && (
+                  <span className={cx('wraper')}>
+                    <Calendar onDateSelect={handleDateSelect} onRangeSelect={handleRangeSelect} />
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-        <button className={cx('btn-style', 'btn-filter')}>Lọc</button>
+        <button className={cx('btn-style', 'btn-filter')} onClick={handleFilterClick}>
+          Lọc
+        </button>
       </span>
     </div>
   );

@@ -26,7 +26,7 @@ const TicketManagement: React.FC = () => {
   const error = useSelector((state: RootState) => state.ticketManagement.error);
 
   useEffect(() => {
-    // Gọi hàm fetchUsers khi component được mount
+    // Gọi hàm fetch khi component được mount
     dispatch(fetchTicketManagement());
   }, [dispatch]);
 
@@ -91,6 +91,7 @@ const TicketManagement: React.FC = () => {
 
   const [filteredData, setFilteredData] = useState<TicketManagementType[]>([]);
 
+  // Chuyển string sang date
   function convertStringToDate(dateString: any) {
     const dateParts = dateString.split('/');
     const day = parseInt(dateParts[0], 10);
@@ -133,13 +134,18 @@ const TicketManagement: React.FC = () => {
         const ticketDateMFG = convertStringToDate(ticket.dayMFG);
         const ticketDateUse = convertStringToDate(ticket.dayUse);
 
+        // Ticket nằm giữa ticketDateMFG và ticketDateUse
         if (
           ticketDateMFG &&
           ticketDateMFG >= dataFilter.startDate &&
           ticketDateUse &&
           ticketDateUse <= dataFilter.endDate
         ) {
-          return true; // Ticket nằm giữa ticketDateMFG và ticketDateUse
+          return true;
+        }
+        // Trường hợp không có ngày sử dụng
+        else if (ticketDateMFG && ticketDateMFG >= dataFilter.startDate) {
+          return true;
         } else {
           return false;
         }

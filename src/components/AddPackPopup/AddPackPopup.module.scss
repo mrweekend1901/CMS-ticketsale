@@ -1,0 +1,185 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 758px;
+  height: 628px;
+
+  .header {
+    margin: 0 auto 26px auto;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #1e0d03;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+
+    .group {
+      display: flex;
+      margin-top: 20px;
+
+      .ps {
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        color: #a5a8b1;
+      }
+
+      .filter {
+        flex: 1;
+
+        .name-pack {
+          padding: 10px 12px;
+          margin: 0 6px;
+          width: 370px;
+          border: 1px solid #a5a8b1;
+          border-radius: 8px;
+          margin: 0;
+
+          &:focus {
+            border-color: #ff993c;
+            outline: none;
+          }
+        }
+
+        .checkbox-group {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          font-size: 16px;
+          color: #1e0d03;
+          font-weight: 500;
+
+          .checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+          }
+
+          .price,
+          .priceCombo,
+          .ticket-num {
+            padding: 10px 12px;
+            margin: 0 6px;
+            width: 140px;
+            border: none;
+            border-radius: 8px;
+            background-color: #f1f4f8;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+            &:focus {
+              outline: 1px solid #ff993c;
+            }
+          }
+        }
+      }
+
+      .group-day {
+        display: flex;
+        align-items: center;
+      }
+
+      .name {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #1e0d03;
+        margin-bottom: 12px;
+
+        &.cus-mrbot {
+          margin-bottom: 2px !important;
+        }
+      }
+
+      .input-day,
+      .pack {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        width: 150px;
+        min-height: 40px;
+        border: 1px solid #a5a8b1;
+        border-radius: 8px;
+        background-color: #fff;
+
+        &.active {
+          border: 1px solid #ff993c;
+        }
+
+        .input {
+          width: 100%;
+          height: 100%;
+          font-size: 1.6rem;
+          font-weight: 500;
+          color: #1e0d03;
+          border: none;
+          background-color: transparent;
+          cursor: default;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .calendar-icon {
+          font-size: 2.2rem;
+          margin-left: 10px;
+          color: #ff993c;
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+
+        .clock-icon {
+          font-size: 2.2rem;
+          margin-left: 10px;
+          color: #ff993c;
+          border: none;
+          background-color: transparent;
+          cursor: default;
+        }
+
+        .wraper {
+          position: absolute;
+          top: 45px;
+          left: 0;
+          border-radius: 20px;
+          box-shadow: 4px 4px 45px 0px rgba(109, 46, 0, 0.35);
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    margin: auto auto 0 auto;
+
+    .btn-filter,
+    .btn-add {
+      margin: 10px;
+      width: 160px;
+      height: 48px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ff993c;
+      background-color: #fff;
+      border: 1.5px solid #ff993c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-add {
+      background-color: #ff993c;
+      color: #fff;
+      border: none;
+    }
+  }
+}

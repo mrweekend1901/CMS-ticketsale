@@ -4,5 +4,5 @@ export interface TicketControlType {
   dayUse: string;
   address: string;
   ticketType: string;
-  controlStatus: boolean;
+  controlStatus: string;
 }
