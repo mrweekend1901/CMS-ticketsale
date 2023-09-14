@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/CMS-ticketsale/static/css/main.a9f1f66c.css",
+    "main.js": "/CMS-ticketsale/static/js/main.e8a3f975.js",
+    "static/js/787.1f1c7130.chunk.js": "/CMS-ticketsale/static/js/787.1f1c7130.chunk.js",
+    "static/media/avatar.svg": "/CMS-ticketsale/static/media/avatar.f54b44a0f0025fa26882ed40a33e1857.svg",
+    "static/media/logo.svg": "/CMS-ticketsale/static/media/logo.7e77cc0019ef141215f80e333ce397e1.svg",
+    "index.html": "/CMS-ticketsale/index.html",
+    "main.a9f1f66c.css.map": "/CMS-ticketsale/static/css/main.a9f1f66c.css.map",
+    "main.e8a3f975.js.map": "/CMS-ticketsale/static/js/main.e8a3f975.js.map",
+    "787.1f1c7130.chunk.js.map": "/CMS-ticketsale/static/js/787.1f1c7130.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a9f1f66c.css",
+    "static/js/main.e8a3f975.js"
+  ]
+}
