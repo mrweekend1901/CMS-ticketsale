@@ -20,27 +20,27 @@ const Sidebar: React.FC = () => {
   // Mảng Menu
   const menuItem: MenuItem[] = [
     {
-      path: '/',
+      path: '/CMS-ticketsale/',
       name: 'Trang chủ',
       icon: <FontAwesomeIcon icon={faHouse} />,
     },
     {
-      path: '/management',
+      path: '/CMS-ticketsale/management',
       name: 'Quản lý vé',
       icon: <FontAwesomeIcon icon={faTicket} />,
     },
     {
-      path: '/control',
+      path: '/CMS-ticketsale/control',
       name: 'Đối soát vé',
       icon: <FontAwesomeIcon icon={faReceipt} />,
     },
     {
-      path: '/setting',
+      path: '/CMS-ticketsale/setting',
       name: 'Cài đặt',
       icon: <FontAwesomeIcon icon={faGear} />,
       children: [
         {
-          path: '/setting/service',
+          path: '/CMS-ticketsale/setting/service',
           name: 'Gói dịch vụ',
         },
       ],
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
 
   const renderMenuItem = (menuItem: MenuItem, index: number) => {
     // Kiểm tra và ngăn chặn navlink của path /setting
-    const isSettingPath = menuItem.path === '/setting';
+    const isSettingPath = menuItem.path === '/CMS-ticketsale/setting';
 
     const linkClassName = cx('link', { 'no-pointer': isSettingPath });
 
