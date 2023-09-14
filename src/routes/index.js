@@ -6,10 +6,10 @@ import TicketManagement from '../pages/TicketManagement';
 
 //Public Routes
 const publicRoutes = [
-  { path: '/', component: Home, layout: DefaultLayout },
-  { path: '/control', component: TicketControl, layout: DefaultLayout },
-  { path: '/management', component: TicketManagement, layout: DefaultLayout },
-  { path: '/setting/service', component: Service, layout: DefaultLayout },
+  { path: '/CMS-ticketsale/', component: Home, layout: DefaultLayout },
+  { path: '/CMS-ticketsale/control', component: TicketControl, layout: DefaultLayout },
+  { path: '/CMS-ticketsale/management', component: TicketManagement, layout: DefaultLayout },
+  { path: '/CMS-ticketsale/setting/service', component: Service, layout: DefaultLayout },
 ];
 
 //Private Routes
